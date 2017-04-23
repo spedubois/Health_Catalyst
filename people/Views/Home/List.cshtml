@@ -1,0 +1,32 @@
+﻿
+@model IEnumerable<people.Models.People>
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>Click the link below to start your search.</h2>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<p>
+    @Html.Label("CLICK HERE TO SEARCH", htmlAttributes: new { @class = "showList", @style="cursor:pointer;"})
+</p>
+<div id="people_list_container">
+    
+</div>
+<script>
+    $('.showList').click(function (e) {
+        var rows_num = prompt("Enter a name.");
+        $.ajax({
+            type: "GET",
+            url: "/Home/_list",
+            data: { id: rows_num },
+            success: function (data) {
+                $("#people_list_container").html(data);
+            },
+            error: function()
+            {
+                alert("ERROR");
+            }
+        });
+    });
+</script>
+
